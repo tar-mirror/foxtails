@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_standard_icons (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/icons.rb, line 15</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_standard_icons</span>
+    <span class="ruby-identifier">old_have_standard_icons</span> = <span class="ruby-ivar">@have_standard_icons</span>
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@have_standard_icons</span>
+      <span class="ruby-identifier">get_file_icons</span>
+      <span class="ruby-identifier">get_edit_icons</span>
+      <span class="ruby-identifier">get_browse_icons</span>
+      <span class="ruby-identifier">get_view_icons</span>
+      <span class="ruby-identifier">get_tree_icons</span>
+      <span class="ruby-identifier">get_misc_icons</span>
+      <span class="ruby-ivar">@have_standard_icons</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">old_have_standard_icons</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

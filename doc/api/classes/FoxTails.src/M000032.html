@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>show_exception (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/dialogs.rb, line 53</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-constant">FoxTails</span>.<span class="ruby-identifier">show_exception</span> <span class="ruby-identifier">message</span> = <span class="ruby-value str">&quot;An exception occurred:&quot;</span>,
+                              <span class="ruby-identifier">pat</span> = <span class="ruby-constant">Exception</span>
+    <span class="ruby-keyword kw">yield</span>
+  <span class="ruby-keyword kw">rescue</span> <span class="ruby-identifier">pat</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">app</span> = <span class="ruby-constant">FTApp</span>.<span class="ruby-identifier">instance</span> <span class="ruby-operator">||</span> <span class="ruby-constant">FTApp</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">win</span> = <span class="ruby-identifier">app</span>.<span class="ruby-identifier">mainWindow</span> <span class="ruby-operator">||</span> <span class="ruby-constant">FXMainWindow</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">app</span>, <span class="ruby-value str">&quot;&quot;</span>)
+    <span class="ruby-identifier">app</span>.<span class="ruby-identifier">create</span>
+    <span class="ruby-constant">FXMessageBox</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">win</span>, <span class="ruby-constant">MBOX_OK</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+      <span class="ruby-node">&quot;#{message}:\n\n&quot;</span> <span class="ruby-operator">+</span>
+      <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n\n&quot;</span> <span class="ruby-operator">+</span>
+      <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>))
+    <span class="ruby-comment cmt">## would be nice to have enabled text so it can be copied out...</span>
+    <span class="ruby-comment cmt">## so use show_message</span>
+    <span class="ruby-identifier">exit!</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

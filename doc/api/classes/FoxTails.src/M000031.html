@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>show_message (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/dialogs.rb, line 9</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-constant">FoxTails</span>.<span class="ruby-identifier">show_message</span> <span class="ruby-identifier">owner</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">button_names</span> = [<span class="ruby-value str">&quot;Ok&quot;</span>]
+    <span class="ruby-identifier">owner</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">FTApp</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">mainWindow</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+
+    <span class="ruby-identifier">dlg</span> = <span class="ruby-constant">FXDialogBox</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">owner</span>, <span class="ruby-identifier">title</span>,
+            <span class="ruby-constant">DECOR_TITLE</span><span class="ruby-operator">|</span><span class="ruby-constant">DECOR_BORDER</span><span class="ruby-operator">|</span><span class="ruby-constant">DECOR_RESIZE</span>,
+            <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">400</span>, <span class="ruby-value">200</span>)
+    
+    <span class="ruby-identifier">frame</span> = <span class="ruby-constant">FXVerticalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dlg</span>, <span class="ruby-constant">LAYOUT_SIDE_TOP</span><span class="ruby-operator">|</span>
+             <span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_Y</span>)
+
+    <span class="ruby-identifier">text_frame</span> = <span class="ruby-constant">FXHorizontalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">frame</span>, <span class="ruby-constant">LAYOUT_SIDE_TOP</span><span class="ruby-operator">|</span>
+             <span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_Y</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_SUNKEN</span>)
+    <span class="ruby-identifier">text_frame</span>.<span class="ruby-identifier">padLeft</span> = <span class="ruby-identifier">text_frame</span>.<span class="ruby-identifier">padRight</span> =
+    <span class="ruby-identifier">text_frame</span>.<span class="ruby-identifier">padTop</span> = <span class="ruby-identifier">text_frame</span>.<span class="ruby-identifier">padBottom</span> = <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">btn_frame</span> = <span class="ruby-constant">FXHorizontalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">frame</span>, <span class="ruby-constant">LAYOUT_SIDE_TOP</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_NONE</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">PACK_UNIFORM_WIDTH</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_CENTER_X</span>)
+
+    <span class="ruby-identifier">text</span> = <span class="ruby-constant">FXText</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text_frame</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-value">0</span>, <span class="ruby-constant">TEXT_WORDWRAP</span><span class="ruby-operator">|</span>
+             <span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_Y</span>)
+    <span class="ruby-identifier">text</span>.<span class="ruby-identifier">editable</span> = <span class="ruby-keyword kw">false</span>
+    <span class="ruby-identifier">text</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">message</span>
+    
+    <span class="ruby-comment cmt">## it might be nice to apply some simple markup to this text</span>
+
+    <span class="ruby-identifier">buttons</span> = <span class="ruby-identifier">button_names</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">button_name</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">button</span> = <span class="ruby-constant">FXButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">btn_frame</span>, <span class="ruby-identifier">button_name</span>)
+      <span class="ruby-identifier">button</span>.<span class="ruby-identifier">buttonStyle</span> = <span class="ruby-constant">BUTTON_DEFAULT</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_THICK</span>
+      <span class="ruby-identifier">button</span>.<span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">result</span> = <span class="ruby-identifier">button_name</span>
+        <span class="ruby-identifier">dlg</span>.<span class="ruby-identifier">handle</span>(<span class="ruby-identifier">dlg</span>, <span class="ruby-constant">MKUINT</span>(<span class="ruby-constant">FXDialogBox</span><span class="ruby-operator">::</span><span class="ruby-constant">ID_ACCEPT</span>, <span class="ruby-constant">SEL_COMMAND</span>), <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">button</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">buttons</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">buttonStyle</span> <span class="ruby-operator">|=</span> <span class="ruby-constant">BUTTON_INITIAL</span>
+    <span class="ruby-identifier">buttons</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">setFocus</span>
+    
+    <span class="ruby-identifier">dlg</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-constant">PLACEMENT_OWNER</span>)
+    
+    <span class="ruby-identifier">result</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/&amp;/</span>, <span class="ruby-value str">&quot;&quot;</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

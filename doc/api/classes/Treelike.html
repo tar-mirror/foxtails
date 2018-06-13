@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Treelike</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Treelike</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/treelike_rb.html">
+                lib/treelike.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Represents the &quot;model&quot; part of a model-view-control tree GUI. All
+operations on the nodes of the tree, such as inserting and deleting roots
+or children, or changing the node&#8217;s displayed text, must go through
+the <a href="Treelike.html">Treelike</a> object, so that changes can be
+propagated to observers.
+</p>
+<p>
+Note that the &quot;tree&quot; may actually be a directed acyclic graph
+(which is kind of &quot;tree-like&quot; ;). It cannot be cyclic.
+</p>
+<p>
+This module provides methods that make simplistic assumptions about the
+nodes. The resulting methods may not be the most efficient possible. More
+specific node classes can be accomodated by overriding these methods,
+possibly more efficiently.
+</p>
+<p>
+The default methods assume that the <a
+href="Treelike.html#M000188">node_children</a> method returns the actual
+array that hold the children, and so operating destructively on it will
+change the structure of the tree.
+</p>
+<p>
+The children of a node can be sparse. A child which is nil is ignored. This
+allows &quot;sparse&quot; arrays to be displayed compactly. It also allows
+<a href="Treelike.html#M000198">add_node</a> to be called in random order,
+if you provide the indices. See examples/tree.rb for an example of sparse
+indices.
+</p>
+<p>
+Also, the index values of a nodes children can be floats, so you can always
+insert between two children without even changing their indices.
+</p>
+<p>
+See <a href="ArrayTree.html">ArrayTree</a> in array-tree.rb for an example
+of mixing this class in.
+</p>
+<p>
+The methods that a class should at least consider overriding are all the
+methods in <a href="Treelike.html">Treelike</a> of the form
+&quot;node_*&quot;. Also, it may be efficient to provide a custom <a
+href="Treelike.html#M000185">each</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000198">add_node</a>&nbsp;&nbsp;
+      <a href="#M000183">add_root</a>&nbsp;&nbsp;
+      <a href="#M000199">delete_node</a>&nbsp;&nbsp;
+      <a href="#M000184">delete_root</a>&nbsp;&nbsp;
+      <a href="#M000185">each</a>&nbsp;&nbsp;
+      <a href="#M000182">new</a>&nbsp;&nbsp;
+      <a href="#M000189">node_child_index</a>&nbsp;&nbsp;
+      <a href="#M000188">node_children</a>&nbsp;&nbsp;
+      <a href="#M000192">node_closed_icon</a>&nbsp;&nbsp;
+      <a href="#M000196">node_join_child</a>&nbsp;&nbsp;
+      <a href="#M000194">node_join_parent</a>&nbsp;&nbsp;
+      <a href="#M000197">node_leave_child</a>&nbsp;&nbsp;
+      <a href="#M000195">node_leave_parent</a>&nbsp;&nbsp;
+      <a href="#M000191">node_open_icon</a>&nbsp;&nbsp;
+      <a href="#M000190">node_parents</a>&nbsp;&nbsp;
+      <a href="#M000193">node_set_text</a>&nbsp;&nbsp;
+      <a href="#M000187">node_text</a>&nbsp;&nbsp;
+      <a href="#M000186">resignal_all</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Enumerable</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Treelike/DuplicateChildError.html" class="link">Treelike::DuplicateChildError</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">child_joins_parent</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Argument is <tt>[child, parent, index]</tt>, where <tt>index</tt> specifies
+the item before which <tt>child</tt> is to be inserted.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">child_leaves_parent</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Argument is <tt>[child, parent]</tt>
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">node_changes</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Argument is <tt>node</tt>, as in <tt>tree.node_changes = node</tt>. The
+signal means that the text of the node has changed or the item needs to be
+redisplayed for some other reason (such as changed icon set).
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">roots</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Accesses the root objects that have been added with <tt><a
+href="Treelike.html#M000183">add_root</a></tt>.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tree_adds_root</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Argument is <tt>[root, index]</tt>
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tree_deletes_root</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Argument is <tt>root</tt>.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000182" class="method-detail">
+        <a name="M000182"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000182.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000182.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000198" class="method-detail">
+        <a name="M000198"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000198.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000198.html');return false;">
+          <span class="method-name">add_node</span><span class="method-args">(node, parent, index = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes that <a
+href="Treelike.html#M000188">node_children</a> returns a mutable array.
+Safe to call if <tt>node</tt> already has <tt>parent</tt>. Default index is
+at end of existing list of children (default is allowed only if using
+numerical indices). Returns <tt>node</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000183" class="method-detail">
+        <a name="M000183"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000183.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000183.html');return false;">
+          <span class="method-name">add_root</span><span class="method-args">(root, index = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add a root object to the tree.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000199.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000199.html');return false;">
+          <span class="method-name">delete_node</span><span class="method-args">(node, parents = node_parents(node))</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes that <a
+href="Treelike.html#M000188">node_children</a> returns a mutable array.
+Safe to call if <tt>node</tt> doesn&#8217;t have some of the
+<tt>parents</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000184" class="method-detail">
+        <a name="M000184"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000184.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000184.html');return false;">
+          <span class="method-name">delete_root</span><span class="method-args">(root)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Delete a root object from the tree, if it is one. Otherwise do nothing.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000185" class="method-detail">
+        <a name="M000185"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000185.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000185.html');return false;">
+          <span class="method-name">each</span><span class="method-args">() {|node| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The tree module brings with it all the Enumerable functionality, as an
+added bonus. The <a href="Treelike.html#M000185">each</a> method visits
+nodes in the order they are displayed in a tree browser when fully
+expanded.
+</p>
+<p>
+A node that has more than one parents is visited under the first parent.
+</p>
+<p>
+Naturally, a class which includes this module may provide its own, more
+efficient, implementation of <a href="Treelike.html#M000185">each</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000189" class="method-detail">
+        <a name="M000189"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000189.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000189.html');return false;">
+          <span class="method-name">node_child_index</span><span class="method-args">(parent, child)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The default implementation is <tt><a
+href="Treelike.html#M000188">node_children</a>(parent).index(node)</tt>. It
+should be overridden if specialized indices are used (e.g., sparse indices,
+or some other set of comparables than integers).
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000188" class="method-detail">
+        <a name="M000188"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000188.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000188.html');return false;">
+          <span class="method-name">node_children</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Can return <tt>nil</tt> or <tt>[]</tt> when there are no children:
+<tt>nil</tt> signifies a leaf whereas <tt>[]</tt> signifies a non-leaf that
+happens to have no children.
+</p>
+<p>
+The default implementation is <tt>node.to_a</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000192" class="method-detail">
+        <a name="M000192"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000192.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000192.html');return false;">
+          <span class="method-name">node_closed_icon</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Override this to change the closed icon from the defaults.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000196" class="method-detail">
+        <a name="M000196"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000196.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000196.html');return false;">
+          <span class="method-name">node_join_child</span><span class="method-args">(node, child, index)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes children array is mutable. If the array is
+sparse and there is room for the child at the index, just put it there,
+otherwise, insert before the node at <tt>index</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000194" class="method-detail">
+        <a name="M000194"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000194.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000194.html');return false;">
+          <span class="method-name">node_join_parent</span><span class="method-args">(node, parent)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes parent array is not stored, and does
+nothing.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000197" class="method-detail">
+        <a name="M000197"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000197.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000197.html');return false;">
+          <span class="method-name">node_leave_child</span><span class="method-args">(node, child)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes children array is mutable.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000195" class="method-detail">
+        <a name="M000195"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000195.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000195.html');return false;">
+          <span class="method-name">node_leave_parent</span><span class="method-args">(node, parent)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Default implementation assumes parent array is not stored, and does
+nothing.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000191" class="method-detail">
+        <a name="M000191"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000191.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000191.html');return false;">
+          <span class="method-name">node_open_icon</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Override this to change the open icon from the defaults.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000190" class="method-detail">
+        <a name="M000190"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000190.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000190.html');return false;">
+          <span class="method-name">node_parents</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The default implementation is to select all nodes that are parents of
+<tt>node</tt>. Very inefficient&#8230; If destructive operations seem slow,
+be sure to define a more specific version of this method for your class.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000193" class="method-detail">
+        <a name="M000193"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000193.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000193.html');return false;">
+          <span class="method-name">node_set_text</span><span class="method-args">(node, text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Descendant classes should super this method.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000187" class="method-detail">
+        <a name="M000187"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000187.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000187.html');return false;">
+          <span class="method-name">node_text</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The default implementation is <tt>node.to_s</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000186" class="method-detail">
+        <a name="M000186"></a>
+
+        <div class="method-heading">
+          <a href="Treelike.src/M000186.html" target="Code" class="method-signature"
+            onclick="popupCode('Treelike.src/M000186.html');return false;">
+          <span class="method-name">resignal_all</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Broadcast all signals needed to rebuild the entire tree in the client
+widgets. This is more complicated than just iterating over all (parent,
+child) pairs and sending child_joins_parent, because of multiple parentage.
+We need to force all of the items representing a parent to be constructed
+before we can construct any items for the child.
+</p>
+<p>
+This is not usually called directly, but only in observers like FTTreeList
+to rebuild the visual tree when the tree model is replaced with a different
+one.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

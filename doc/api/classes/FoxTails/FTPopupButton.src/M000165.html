@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>do_popup (FoxTails::FTPopupButton)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTPopupButton.rb, line 13</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_popup</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">state</span> = <span class="ruby-constant">STATE_ENGAGED</span>
+      <span class="ruby-identifier">w</span> = <span class="ruby-ivar">@make_popup</span>.<span class="ruby-identifier">call</span>
+      <span class="ruby-identifier">w</span>.<span class="ruby-identifier">create</span>
+      <span class="ruby-identifier">pop_x</span>, <span class="ruby-identifier">pop_y</span> = <span class="ruby-identifier">translateCoordinatesTo</span>(<span class="ruby-identifier">getRoot</span>, <span class="ruby-value">0</span>, <span class="ruby-identifier">height</span>)
+      <span class="ruby-identifier">w</span>.<span class="ruby-identifier">popup</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">pop_x</span>, <span class="ruby-identifier">pop_y</span>)
+      <span class="ruby-identifier">w</span>.<span class="ruby-identifier">grabKeyboard</span>
+      <span class="ruby-identifier">getApp</span>().<span class="ruby-identifier">runModalWhileShown</span>(<span class="ruby-identifier">w</span>)
+    <span class="ruby-keyword kw">ensure</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">state</span> = <span class="ruby-constant">STATE_UP</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

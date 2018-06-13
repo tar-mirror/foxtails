@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: FoxTails::FTField</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">FoxTails::FTField</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/foxtails/FTField_rb.html">
+                lib/foxtails/FTField.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Can be included in any widget to allow definition of data entry fields.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000057">field</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="FTField/FieldSpec.html" class="link">FoxTails::FTField::FieldSpec</a><br />
+Class <a href="FTField/SpecificationError.html" class="link">FoxTails::FTField::SpecificationError</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TEXT_FIELD_CLASS</td>
+          <td>=</td>
+          <td class="context-item-value">{       &quot;s&quot; =&gt; FTTextField,       &quot;d&quot; =&gt; FTIntegerField,       &quot;f&quot; =&gt; FTFloatField</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DEFAULT_FIELD_WIDTH</td>
+          <td>=</td>
+          <td class="context-item-value">10</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="FTField.src/M000057.html" target="Code" class="method-signature"
+            onclick="popupCode('FTField.src/M000057.html');return false;">
+          <span class="method-name">field</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Usage:
+</p>
+<pre>
+  field(&quot;blah blah %10s foo bar %8.3f baz %8d&quot;,
+        :str_var, :flt_var, :int_var)
+</pre>
+<p>
+where str_var, flt_var, and int_var are observable. Returns a <a
+href="FTField/FieldSpec.html">FieldSpec</a>.
+</p>
+<p>
+The precision part of the %f specifier is optional, the default is
+FTFloatField::DEFAULT_FLOAT_PRECISION.
+</p>
+<p>
+Normally used within an initialize method, or in a method that creates text
+fields.
+</p>
+<p>
+If one arg is a FXWindow, it is assumed to be the parent for the fields,
+otherwise, self is used. Fields are created under a FXHorizontalFrame.
+</p>
+<p>
+The substring %% is replaced by a single % in the output.
+</p>
+<p>
+White space at the either end of a field is deleted.
+</p>
+<p>
+A field spec %v inserts a checkbox targeted at the corr. var.
+</p>
+<p>
+A field spec %r inserts a radio button. The corr. var must be of the form
+[:var, value]. Selecting the button assigns value to :var.
+</p>
+<p>
+Any :var can be replaced with [obj, :var], if obj supports var and var=
+methods.
+</p>
+<p>
+The field specifier %| can be used to divide up the string into more than
+one framed collection of fields. Each frame is added individually under the
+parent. This is useful when the parent is a FXMatrix, or when you want
+fields to split across lines.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

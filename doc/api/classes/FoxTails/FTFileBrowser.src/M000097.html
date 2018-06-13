@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>open_selection (FoxTails::FTFileBrowser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTFileBrowser.rb, line 140</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">open_selection</span> <span class="ruby-identifier">index</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">isItemDirectory</span>(<span class="ruby-identifier">index</span>)
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">directory</span> = <span class="ruby-identifier">getItemPathname</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">isItemFile</span>(<span class="ruby-identifier">index</span>)
+        <span class="ruby-identifier">items</span> = (<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">getNumItems</span>).<span class="ruby-identifier">select</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">isItemDirectory</span>(<span class="ruby-identifier">i</span>)
+            <span class="ruby-identifier">deselectItem</span>(<span class="ruby-identifier">i</span>)
+            <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">isItemSelected</span>(<span class="ruby-identifier">i</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">names</span> = <span class="ruby-identifier">items</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">index</span><span class="ruby-operator">|</span> <span class="ruby-identifier">getItemPathname</span>(<span class="ruby-identifier">index</span>)}
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">files_chosen</span> = <span class="ruby-identifier">names</span>
+        <span class="ruby-identifier">open_named_files</span>(<span class="ruby-identifier">names</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

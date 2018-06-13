@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (FoxTails::FTFileBrowser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTFileBrowser.rb, line 23</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">parent</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">state</span>,
+                    <span class="ruby-identifier">opts</span> = <span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span>,
+                    <span class="ruby-identifier">filelist_opts</span> = <span class="ruby-constant">ICONLIST_MINI_ICONS</span><span class="ruby-operator">|</span><span class="ruby-constant">ICONLIST_AUTOSIZE</span>
+      
+      <span class="ruby-constant">FoxTails</span>.<span class="ruby-identifier">get_file_icons</span>
+      <span class="ruby-constant">FoxTails</span>.<span class="ruby-identifier">get_browse_icons</span>
+      
+      <span class="ruby-ivar">@outer_frame</span> = <span class="ruby-constant">FXHorizontalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">parent</span>, <span class="ruby-identifier">opts</span>)
+
+      <span class="ruby-identifier">inner_frame</span> = <span class="ruby-constant">FXHorizontalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@outer_frame</span>,
+        <span class="ruby-constant">FRAME_SUNKEN</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_THICK</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_Y</span>,
+        <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>)
+      
+      <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">inner_frame</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">state</span>,
+            <span class="ruby-constant">LAYOUT_FILL_X</span><span class="ruby-operator">|</span><span class="ruby-constant">LAYOUT_FILL_Y</span><span class="ruby-operator">|</span><span class="ruby-identifier">filelist_opts</span>)
+      
+      <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_DOUBLECLICKED</span>, <span class="ruby-identifier">method</span>(<span class="ruby-identifier">:onCmdFileList</span>))
+      <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_RIGHTBUTTONRELEASE</span>, <span class="ruby-identifier">method</span>(<span class="ruby-identifier">:onPopupMenu</span>))
+      
+      <span class="ruby-identifier">btn_frame</span> = <span class="ruby-constant">FXVerticalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@outer_frame</span>)
+      
+      <span class="ruby-comment cmt">## need a drive box button for windows</span>
+      
+      <span class="ruby-constant">FTEnabledButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">btn_frame</span>,
+        <span class="ruby-value str">&quot;\tUp one level\tGo up to higher directory.&quot;</span>,
+        <span class="ruby-constant">UPLEVEL_ICON</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:can_go_up</span>, <span class="ruby-constant">BUTTON_TOOLBAR</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span>).
+        <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">on_cmd_up_dir</span>}
+
+      <span class="ruby-constant">FXButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">btn_frame</span>, <span class="ruby-value str">&quot;\tGo home\tGo to home directory.&quot;</span>,
+        <span class="ruby-constant">HOME_ICON</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-value">0</span>, <span class="ruby-constant">BUTTON_TOOLBAR</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span>).
+        <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">on_cmd_home_dir</span>}
+
+      <span class="ruby-constant">FTEnabledButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">btn_frame</span>,
+        <span class="ruby-value str">&quot;\tCreate new directory\tCreate new directory.&quot;</span>,
+        <span class="ruby-constant">NEW_DIR_ICON</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:can_write</span>, <span class="ruby-constant">BUTTON_TOOLBAR</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span>).
+        <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">on_cmd_new_dir</span>}
+
+      <span class="ruby-constant">FTPopupButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">btn_frame</span>, <span class="ruby-value str">&quot;\tBookmarks\tBookmarks.&quot;</span>,
+        <span class="ruby-constant">MARK_ICON</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-value">0</span>, <span class="ruby-constant">BUTTON_TOOLBAR</span><span class="ruby-operator">|</span><span class="ruby-constant">FRAME_RAISED</span>) {<span class="ruby-identifier">make_bookmark_popup</span>}
+      
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">shown_state</span>      = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">show_icons_state</span> = <span class="ruby-identifier">:mini</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">arrange_state</span>    = <span class="ruby-identifier">:by_rows</span>
+      
+      <span class="ruby-identifier">when_shown_state</span>(<span class="ruby-keyword kw">true</span>)  { <span class="ruby-ivar">@outer_frame</span>.<span class="ruby-identifier">shown</span>=<span class="ruby-keyword kw">true</span>; <span class="ruby-identifier">recalc</span> } <span class="ruby-comment cmt">## how to recalc?</span>
+      <span class="ruby-identifier">when_shown_state</span>(<span class="ruby-keyword kw">false</span>) { <span class="ruby-ivar">@outer_frame</span>.<span class="ruby-identifier">shown</span>=<span class="ruby-keyword kw">false</span>; <span class="ruby-identifier">recalc</span> }
+      
+      <span class="ruby-identifier">when_show_icons_state</span>(<span class="ruby-identifier">:big</span>)      { <span class="ruby-identifier">show_big_icons</span>     }
+      <span class="ruby-identifier">when_show_icons_state</span>(<span class="ruby-identifier">:mini</span>)     { <span class="ruby-identifier">show_mini_icons</span>    }
+      <span class="ruby-identifier">when_show_icons_state</span>(<span class="ruby-identifier">:details</span>)  { <span class="ruby-identifier">show_details</span>      }
+
+      <span class="ruby-identifier">when_arrange_state</span>(<span class="ruby-identifier">:by_rows</span>)     { <span class="ruby-identifier">arrange_by_rows</span>    }
+      <span class="ruby-identifier">when_arrange_state</span>(<span class="ruby-identifier">:by_columns</span>)  { <span class="ruby-identifier">arrange_by_columns</span> }
+      
+      <span class="ruby-identifier">when_show_hidden_state</span> <span class="ruby-constant">BOOLEAN</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">hiddenFilesShown</span> = <span class="ruby-identifier">bool</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

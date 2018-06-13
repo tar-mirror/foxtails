@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_misc_icons (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/icons.rb, line 97</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_misc_icons</span>
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@have_misc_icons</span>
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PALETTE_ICON</span>,        <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;colorpal.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:MDI_ICON</span>,            <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;winapp.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PENGUIN_ICON</span>,        <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;penguin.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FOX_ICON</span>,            <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;foxicon.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:BLUE_LINE_ICON</span>,      <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;solid_line.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:HELP_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;help.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PROP_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;prop.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PREFS_ICON</span>,          <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;prefs.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PLOT_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;gnuplot.png&quot;</span>)
+      
+      <span class="ruby-comment cmt"># from FXMessageBox</span>
+      <span class="ruby-comment cmt">## not sure why gif2png loses transparency on these?</span>
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:ERROR_ICON</span>,          <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;error.gif&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:WARNING_ICON</span>,        <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;warning.gif&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:INFO_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;info.gif&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:QUESTION_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;question.gif&quot;</span>)
+      
+      <span class="ruby-comment cmt"># from /usr/share/icons/crystalsvg/16x16/actions/ok.png:</span>
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:UP_ICON</span>,             <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;up.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:DOWN_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;down.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:OK_ICON</span>,             <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;ok.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:CANCEL_ICON</span>,         <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;cancel.png&quot;</span>)
+      
+      <span class="ruby-ivar">@have_misc_icons</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

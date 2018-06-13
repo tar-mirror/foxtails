@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>connect_to_target (FoxTails::FTTextField)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTTextField.rb, line 32</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect_to_target</span>
+      <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_FOCUSOUT</span>) <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">set_target_state</span>(<span class="ruby-identifier">get_value</span>()) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@dynamic</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_CHANGED</span>) <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">set_target_state</span>(<span class="ruby-identifier">get_value</span>()) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dynamic</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">when_target_state</span> <span class="ruby-constant">CHANGES</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">setText</span>(<span class="ruby-identifier">formatted_display</span>(<span class="ruby-identifier">value</span>))
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

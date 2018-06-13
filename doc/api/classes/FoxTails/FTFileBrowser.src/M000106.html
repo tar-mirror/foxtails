@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>on_cmd_new_dir (FoxTails::FTFileBrowser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTFileBrowser.rb, line 314</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_cmd_new_dir</span>
+      <span class="ruby-comment cmt"># adapted from FXFileSelector::onCmdNew</span>
+      <span class="ruby-identifier">dir</span> = <span class="ruby-identifier">directory</span>
+      <span class="ruby-identifier">name</span> = <span class="ruby-constant">FXInputDialog</span>.<span class="ruby-identifier">getString</span>(
+              <span class="ruby-value str">&quot;DirectoryName&quot;</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-value str">&quot;Create New Directory&quot;</span>,
+              <span class="ruby-node">&quot;Create new directory in: #{dir}&quot;</span>, <span class="ruby-constant">NEW_DIR_ICON</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>
+        <span class="ruby-identifier">dirname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">name</span>)
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">dirname</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EACCES</span>
+          <span class="ruby-constant">FXMessageBox</span>.<span class="ruby-identifier">error</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-constant">MBOX_OK</span>, <span class="ruby-value str">&quot;Cannot Create&quot;</span>,
+            <span class="ruby-node">&quot;Cannot create directory #{dirname}.\n&quot;</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
+          <span class="ruby-constant">FXMessageBox</span>.<span class="ruby-identifier">error</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-constant">MBOX_OK</span>, <span class="ruby-value str">&quot;Already Exists&quot;</span>,
+            <span class="ruby-node">&quot;Directory #{dirname} already exists.\n&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,19 @@
+To install:
+
+  ruby install.rb config
+  ruby install.rb setup
+  ruby install.rb install
+
+You also need observable:
+
+http://www.ruby-lang.org/raa/list.rhtml?name=observable
+
+and of course fox/fxruby:
+
+http://fxruby.sourceforge.net
+http://www.fox-toolkit.org
+
+Documentation:
+
+  foxtails.txt
+  doc/foxtails.html

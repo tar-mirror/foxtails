@@ -1,0 +1,60 @@
+
+FoxTails is a set of pure Ruby extensions for FXRuby. (FXRuby is the Ruby bindings for the Fox C++ GUI library. See http://fxruby.sourceforge.net.)
+
+This is an alpha release, so documentation is still very sketchy, and there are no tests. There are examples, though. See also the comments in foxtails.rb for a basic roadmap of the library.
+
+FoxTails depends on observable:
+
+http://www.ruby-lang.org/raa/list.rhtml?name=observable
+
+and of course fox/fxruby:
+
+http://fxruby.sourceforge.net
+http://www.fox-toolkit.org
+
+The install process is the standard one:
+
+  ruby install.rb config
+  ruby install.rb setup
+  ruby install.rb install
+
+=== Observable attributes
+
+The most useful part of FoxTails is the use of observable attributes to connect
+GUI components, as an alternative to directly using Fox's target mechanism. It
+helps you separate your Ruby object model from the GUI representation. It's
+very easy to use. See the examples.
+
+Some features:
+
+- Deferred targets. By using a code block (in place of the object itself) to indicate the target of a widget, there is no need to worry about initialization order, which leads to better decoupling.
+
+- In the FoxTails API, the argument lists have the same form as Fox argument lists, except that the tgt,sel args are replaced by a target, an accessor, and sometimes other args. So it's easy to use existing documentation and to convert old programs.
+
+- Works with existing accessors provided by FXRuby (e.g., #enabled=, etc.) (see examples/scroll.rb).
+
+- Updates happen with no delay! (This is esp. nice for menus, which always bothered me in Fox.)
+
+- Values (e.g. in text fields, combo boxes) can be anything, not just numbers or strings (see examples/combo.rb). Fields can be automatically validated.
+
+- Easy shortcuts for creating fields. See examples/fields.b.
+
+=== Other features
+
+FoxTails also includes some "megawidgets", such as a dir broswer with bookmarks. See examples/file-browser.rb and examples/simple.rb, which also shows how easy it is to link multiple widgets to a ruby object attribute. See foxtails.rb for brief descriptions.
+
+There is some preliminary and experimental support for connecting trees to tree browsers using FoxTails targeting mechanism. See FTTreeList and examples/tree.rb.
+
+== Version
+
+foxtails 0.6
+
+The current version of this software can be found at http://redshift.sourceforge.net/foxtails.
+
+== License
+
+This software is distributed under the Ruby license. See http://www.ruby-lang.org.
+
+== Author
+
+Joel VanderWerf, mailto:vjoel@users.sourceforge.net

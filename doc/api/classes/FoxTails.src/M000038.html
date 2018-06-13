@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_view_icons (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/icons.rb, line 69</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_view_icons</span>
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@have_view_icons</span>
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PERSPECTIVE_ICON</span>,    <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;perspective.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PARALLEL_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;parallel.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:LIGHT_ICON</span>,          <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;light.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:NO_LIGHT_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;nolight.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:SMOOTHLIGHT_ICON</span>,    <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;smoothlight.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FRONTVIEW_ICON</span>,      <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;frontview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:BACKVIEW_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;backview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:LEFTVIEW_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;leftview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:RIGHTVIEW_ICON</span>,      <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;rightview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:TOPVIEW_ICON</span>,        <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;topview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:BOTTOMVIEW_ICON</span>,     <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;bottomview.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:ZOOM_ICON</span>,           <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;zoom.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:CAMERA_ICON</span>,         <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;camera.png&quot;</span>)
+      <span class="ruby-ivar">@have_view_icons</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

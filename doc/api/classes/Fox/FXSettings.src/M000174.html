@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_entry (Fox::FXSettings)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FXSettings.rb, line 21</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_entry</span>(<span class="ruby-identifier">section</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">section</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">MAXNAME</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StringOverflow</span>,
+              <span class="ruby-node">&quot;FXSettings section '#{section[0..50]}...'\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  is #{section.length} bytes; limit is #{MAXNAME}.&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">MAXNAME</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StringOverflow</span>,
+              <span class="ruby-node">&quot;FXSettings key '#{key[0..50]}...'\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  in section [#{section}]\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  is #{key.length} bytes; limit is #{MAXNAME}.&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">MAXVALUE</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StringOverflow</span>,
+              <span class="ruby-node">&quot;FXSettings value '#{value[0..50]}...'\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  associated with key '#{key}' in section [#{section}]\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  is #{value.length} bytes; limit is #{MAXVALUE}.&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">MAXBUFFER</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StringOverflow</span>,
+              <span class="ruby-node">&quot;FXSettings key '#{key[0..50]}...'\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  and value '#{value[0..50]}...'\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  in section [#{section}]\n&quot;</span> <span class="ruby-operator">+</span>
+              <span class="ruby-node">&quot;  are #{key.length + value.length + 1} bytes;&quot;</span> <span class="ruby-operator">+</span>
+               <span class="ruby-node">&quot; limit is #{MAXBUFFER}.&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

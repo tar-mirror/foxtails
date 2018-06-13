@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>recalc_list (FoxTails::FTComboBox)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTComboBox.rb, line 23</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recalc_list</span>
+      <span class="ruby-comment cmt">## it would be best to just always do this on SEL_LEFTBUTTONPRESS,</span>
+      <span class="ruby-comment cmt">## but that is mapped to a non-virtual function, and onListClicked</span>
+      <span class="ruby-comment cmt">## is not available (so we can FXMAPFUNC to our own version which</span>
+      <span class="ruby-comment cmt">## calls it), and the popup button doesn't go thru this anyway.</span>
+      <span class="ruby-identifier">clearItems</span>
+      <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">appendItem</span>(<span class="ruby-identifier">display</span>(<span class="ruby-identifier">item</span>))} <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">list</span>
+        
+      <span class="ruby-identifier">item</span> = <span class="ruby-identifier">index</span>(<span class="ruby-identifier">get_target_state</span>)
+<span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">setCurrentItem</span>(<span class="ruby-identifier">item</span> <span class="ruby-operator">||</span> <span class="ruby-value">0</span>)  <span class="ruby-comment cmt">## disable if not on list?</span>
+<span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">IndexError</span>
+ <span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>
+<span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">recalc_num_visible</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

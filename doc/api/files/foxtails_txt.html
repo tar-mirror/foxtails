@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: foxtails.txt</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>foxtails.txt</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>foxtails.txt
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Oct 03 10:14:19 PDT 2006</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="../classes/FoxTails.html">FoxTails</a> is a set of pure Ruby
+extensions for FXRuby. (FXRuby is the Ruby bindings for the <a
+href="../classes/Fox.html">Fox</a> C++ GUI library. See <a
+href="http://fxruby.sourceforge.net">fxruby.sourceforge.net</a>.)
+</p>
+<p>
+This is an alpha release, so documentation is still very sketchy, and there
+are no tests. There are examples, though. See also the comments in
+foxtails.rb for a basic roadmap of the library.
+</p>
+<p>
+<a href="../classes/FoxTails.html">FoxTails</a> depends on observable:
+</p>
+<p>
+<a
+href="http://www.ruby-lang.org/raa/list.rhtml?name=observable">www.ruby-lang.org/raa/list.rhtml?name=observable</a>
+</p>
+<p>
+and of course fox/fxruby:
+</p>
+<p>
+<a href="http://fxruby.sourceforge.net">fxruby.sourceforge.net</a> <a
+href="http://www.fox-toolkit.org">www.fox-toolkit.org</a>
+</p>
+<p>
+The install process is the standard one:
+</p>
+<pre>
+  ruby install.rb config
+  ruby install.rb setup
+  ruby install.rb install
+</pre>
+<h3>Observable attributes</h3>
+<p>
+The most useful part of <a href="../classes/FoxTails.html">FoxTails</a> is
+the use of observable attributes to connect GUI components, as an
+alternative to directly using <a href="../classes/Fox.html">Fox</a>&#8217;s
+target mechanism. It helps you separate your Ruby object model from the GUI
+representation. It&#8217;s very easy to use. See the examples.
+</p>
+<p>
+Some features:
+</p>
+<ul>
+<li>Deferred targets. By using a code block (in place of the object itself) to
+indicate the target of a widget, there is no need to worry about
+initialization order, which leads to better decoupling.
+
+</li>
+<li>In the <a href="../classes/FoxTails.html">FoxTails</a> API, the argument
+lists have the same form as <a href="../classes/Fox.html">Fox</a> argument
+lists, except that the tgt,sel args are replaced by a target, an accessor,
+and sometimes other args. So it&#8217;s easy to use existing documentation
+and to convert old programs.
+
+</li>
+<li>Works with existing accessors provided by FXRuby (e.g., enabled=, etc.)
+(see examples/scroll.rb).
+
+</li>
+<li>Updates happen with no delay! (This is esp. nice for menus, which always
+bothered me in <a href="../classes/Fox.html">Fox</a>.)
+
+</li>
+<li>Values (e.g. in text fields, combo boxes) can be anything, not just numbers
+or strings (see examples/combo.rb). Fields can be automatically validated.
+
+</li>
+<li>Easy shortcuts for creating fields. See examples/fields.b.
+
+</li>
+</ul>
+<h3>Other features</h3>
+<p>
+<a href="../classes/FoxTails.html">FoxTails</a> also includes some
+&quot;megawidgets&quot;, such as a dir broswer with bookmarks. See
+examples/file-browser.rb and examples/simple.rb, which also shows how easy
+it is to link multiple widgets to a ruby object attribute. See foxtails.rb
+for brief descriptions.
+</p>
+<p>
+There is some preliminary and experimental support for connecting trees to
+tree browsers using <a href="../classes/FoxTails.html">FoxTails</a>
+targeting mechanism. See FTTreeList and examples/tree.rb.
+</p>
+<h2>Version</h2>
+<p>
+foxtails 0.6
+</p>
+<p>
+The current version of this software can be found at <a
+href="http://redshift.sourceforge.net/foxtails">redshift.sourceforge.net/foxtails</a>.
+</p>
+<h2>License</h2>
+<p>
+This software is distributed under the Ruby license. See <a
+href="http://www.ruby-lang.org">www.ruby-lang.org</a>.
+</p>
+<h2>Author</h2>
+<p>
+Joel VanderWerf, <a
+href="mailto:vjoel@users.sourceforge.net">vjoel@users.sourceforge.net</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

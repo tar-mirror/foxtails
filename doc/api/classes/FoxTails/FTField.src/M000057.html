@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>field (FoxTails::FTField)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTField.rb, line 69</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">field</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
+      <span class="ruby-identifier">args</span>.<span class="ruby-identifier">delete_if</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FXWindow</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">arg</span>
+          <span class="ruby-identifier">parent</span> = <span class="ruby-identifier">arg</span>; <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">false</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">str</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">vars</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+      
+      <span class="ruby-identifier">next_var</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">shift</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">raise</span> <span class="ruby-constant">SpecificationError</span>, <span class="ruby-value str">&quot;field: too few vars&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">frame_strs</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s*%\|\s*/</span>)
+      <span class="ruby-identifier">nested_fields</span> = <span class="ruby-identifier">frame_strs</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">frame_str</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">hframe</span> = <span class="ruby-constant">FXHorizontalFrame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">parent</span>, <span class="ruby-constant">LAYOUT_FILL_X</span>)
+        <span class="ruby-identifier">hframe</span>.<span class="ruby-identifier">padBottom</span> = <span class="ruby-identifier">hframe</span>.<span class="ruby-identifier">padTop</span> = <span class="ruby-value">0</span>
+        <span class="ruby-identifier">hframe</span>.<span class="ruby-identifier">padLeft</span> = <span class="ruby-identifier">hframe</span>.<span class="ruby-identifier">padRight</span> = <span class="ruby-value">0</span>
+<span class="ruby-comment cmt">#        hframe.layoutHints = LAYOUT_CENTER_Y</span>
+        
+        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">frame_str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/(%.*?[sdfvrm])/</span>).<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span><span class="ruby-identifier">s</span>.<span class="ruby-identifier">empty?</span>}
+          <span class="ruby-comment cmt"># reject, e.g., &quot;%f foo&quot; or &quot;  %f%f  &quot;</span>
+          
+        <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">part</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A%(?:(\d+)(?:\.(\d+))?)?([sdf])\z/</span> <span class="ruby-comment cmt"># Numeric or String field</span>
+            <span class="ruby-identifier">width</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">$1</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FIELD_WIDTH</span>)
+            <span class="ruby-identifier">prec</span> = <span class="ruby-identifier">$2</span>
+            <span class="ruby-identifier">type</span> = <span class="ruby-identifier">$3</span>
+            <span class="ruby-identifier">var</span> = <span class="ruby-identifier">next_var</span>[]
+            <span class="ruby-identifier">w</span> = <span class="ruby-constant">TEXT_FIELD_CLASS</span>[<span class="ruby-identifier">type</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hframe</span>, <span class="ruby-identifier">width</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">var</span>))
+            <span class="ruby-identifier">w</span>.<span class="ruby-identifier">precision</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">prec</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prec</span>
+          
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;%v&quot;</span> <span class="ruby-comment cmt"># Check button</span>
+            <span class="ruby-identifier">var</span> = <span class="ruby-identifier">next_var</span>[]
+            <span class="ruby-identifier">w</span> = <span class="ruby-constant">FTCheckButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hframe</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">var</span>))
+
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;%r&quot;</span> <span class="ruby-comment cmt"># Radio button</span>
+            <span class="ruby-identifier">var</span>, <span class="ruby-identifier">val</span> = <span class="ruby-identifier">next_var</span>[]
+            <span class="ruby-identifier">w</span> = <span class="ruby-constant">FTRadioButton</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hframe</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">*</span>(<span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">var</span>)<span class="ruby-operator">+</span>[<span class="ruby-identifier">val</span>]))
+              <span class="ruby-comment cmt">## val not stored in result</span>
+          
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;%m&quot;</span> <span class="ruby-comment cmt"># Pop-up option menu</span>
+            <span class="ruby-identifier">w</span> = <span class="ruby-constant">FTOptionMenu</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hframe</span>,<span class="ruby-operator">*</span><span class="ruby-identifier">make_list_target</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">next_var</span>[]))
+              <span class="ruby-comment cmt">## list not stored in result</span>
+          
+          <span class="ruby-comment cmt">## %l ==.list box</span>
+
+          <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># Static text</span>
+            <span class="ruby-identifier">var</span> = <span class="ruby-keyword kw">nil</span>
+            <span class="ruby-identifier">text</span> = <span class="ruby-identifier">part</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/%%/</span>, <span class="ruby-value str">'%'</span>) <span class="ruby-comment cmt">## too late: misses &quot;%%d&quot; !</span>
+            <span class="ruby-identifier">w</span> = <span class="ruby-constant">FXLabel</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hframe</span>, <span class="ruby-identifier">text</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">w</span>.<span class="ruby-identifier">layoutHints</span> = <span class="ruby-constant">LAYOUT_CENTER_Y</span>
+
+          [<span class="ruby-identifier">var</span>, <span class="ruby-identifier">w</span>]
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">FieldSpec</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">nested_fields</span>.<span class="ruby-identifier">inject</span>([]){<span class="ruby-operator">|</span><span class="ruby-identifier">r</span>,<span class="ruby-identifier">a</span><span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">+</span><span class="ruby-identifier">a</span>})
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

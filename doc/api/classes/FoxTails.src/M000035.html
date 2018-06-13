@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_file_icons (FoxTails)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/icons.rb, line 29</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_file_icons</span> 
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@have_file_icons</span>
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_NEW_ICON</span>,       <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;filenew.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_OPEN_ICON</span>,      <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;fileopen.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_SAVE_ICON</span>,      <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;filesave.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_SAVE_AS_ICON</span>,   <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;filesaveas.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_REFRESH_ICON</span>,   <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;redo.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FILE_CLOSE_ICON</span>,     <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;kill.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:PRINT_ICON</span>,          <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;printicon.png&quot;</span>)
+      <span class="ruby-identifier">const_set</span> <span class="ruby-identifier">:FOLDER_ICON</span>,         <span class="ruby-identifier">get_icon</span>(<span class="ruby-value str">&quot;folder.png&quot;</span>) 
+        <span class="ruby-comment cmt"># from /usr/share/icons/crystalsvg/22x22/actions/fileopen.png</span>
+      <span class="ruby-ivar">@have_file_icons</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>make_bookmark_popup (FoxTails::FTFileBrowser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/foxtails/FTFileBrowser.rb, line 282</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_bookmark_popup</span>
+      <span class="ruby-identifier">bm_menu</span> = <span class="ruby-constant">FXMenuPane</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>,<span class="ruby-constant">POPUP_SHRINKWRAP</span>)
+
+      <span class="ruby-comment cmt">## copied from above</span>
+      <span class="ruby-constant">FXMenuCommand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bm_menu</span>, <span class="ruby-value str">&quot;Set bookmark&quot;</span>, <span class="ruby-constant">MARK_ICON</span>).
+        <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">set_bookmark</span>}
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@bookmarks</span>
+        <span class="ruby-constant">FXMenuCommand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bm_menu</span>, <span class="ruby-value str">&quot;Clear bookmarks&quot;</span>, <span class="ruby-constant">CLEAR_MARKS_ICON</span>).
+          <span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">clear_bookmarks</span>}
+
+        <span class="ruby-constant">FXMenuSeparator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bm_menu</span>)
+        
+        <span class="ruby-ivar">@bookmarks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">bm</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">FXMenuCommand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bm_menu</span>, <span class="ruby-identifier">bm</span>).<span class="ruby-identifier">connect</span>(<span class="ruby-constant">SEL_COMMAND</span>) {<span class="ruby-identifier">open_bookmark</span> <span class="ruby-identifier">bm</span>}
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">bm_menu</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

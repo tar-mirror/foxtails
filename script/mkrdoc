@@ -1,0 +1,6 @@
+#!/bin/zsh
+cd ~/ruby/prj/foxtails
+rdoc $* -x . -m foxtails.txt -o doc/api -f html \
+  --accessor observable=RW \
+  --accessor signal=RW \
+  foxtails.txt RELEASE-NOTES README lib/**/*.rb

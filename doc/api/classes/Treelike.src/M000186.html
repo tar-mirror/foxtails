@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>resignal_all (Treelike)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/treelike.rb, line 130</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resignal_all</span>
+    <span class="ruby-identifier">roots</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">root</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">tree_adds_root</span> = [<span class="ruby-identifier">root</span>, <span class="ruby-identifier">index</span>]
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">item_map_completed_for</span> = {}
+    
+    <span class="ruby-identifier">iterate</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">parents</span> = <span class="ruby-identifier">node_parents</span>(<span class="ruby-identifier">node</span>)  <span class="ruby-comment cmt">## might be inefficient. cache?</span>
+      
+      <span class="ruby-identifier">parents</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parent</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">iterate</span>[<span class="ruby-identifier">parent</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">item_map_completed_for</span>[<span class="ruby-identifier">parent</span>]
+        <span class="ruby-identifier">index</span> = <span class="ruby-identifier">node_child_index</span>(<span class="ruby-identifier">parent</span>, <span class="ruby-identifier">node</span>)
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">child_joins_parent</span> = [<span class="ruby-identifier">node</span>, <span class="ruby-identifier">parent</span>, <span class="ruby-identifier">index</span>]
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">item_map_completed_for</span>[<span class="ruby-identifier">node</span>] = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">node_children</span>(<span class="ruby-identifier">node</span>)   <span class="ruby-comment cmt"># start with leaves</span>
+      <span class="ruby-identifier">iterate</span>[<span class="ruby-identifier">node</span>]
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

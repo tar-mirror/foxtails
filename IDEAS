@@ -1,0 +1,48 @@
+FT's data driven controls are like the "interactors" of:
+
+http://www.opendx.org/about.html
+
+--
+
+TODO: use rdoc instead of rd.
+
+--
+
+drb targets
+
+  allows distributed GUI app
+
+--
+
+FoxML:
+
+  specification language for Fox-based UI
+  
+  markup language for Fox-based browsing
+
+--
+
+Keyword arguments. Instead of:
+
+  FXRadioButton.new(self, "foo", thing, :var, :some-value)
+
+we'd be able to do
+
+  FXRadioButton.new(self, "foo",
+    :target => thing,
+    :state  => :var,
+    :value  => :some-state)
+
+--
+
+Instead of
+
+    m = FXMatrix.new(self, 2)
+    FXButton.new(m, ...)
+
+it would be nice to do something like
+    
+    Foxtails.matrix 2 do
+      Foxtails.button ...
+      ...
+    end

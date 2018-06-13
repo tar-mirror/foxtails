@@ -1,0 +1,50 @@
+foxtails 0.6
+
+- Updated to Fox/FXRuby 1.6
+
+foxtails 0,5
+
+- Updated to Fox/FXRuby 1.4
+
+foxtails 0,4
+
+- FoxTails now supports Fox 1.2 *only*.
+
+- FTField now supports targets other than self--see example/fields.rb.
+
+- FTNonModal: easy way to "execute" a non-modal dialog. See
+  examples/nonmodal.rb. (This is available in recent FXRuby.)
+
+foxtails 0.3
+
+- FTFields and examples/fields.rb: easy creation of static text and a variety
+  of input fields using edit text, check and radio buttons, and option menus.
+
+- FTOptionMenu and examples/opt-menu.rb: fits option menus into the
+  targeting framework using observable attrs.
+  
+- Validation for text fields.
+
+- The main foxtails.rb file now uses autoload to lazily require most of the
+  rest of foxtails. There is no longer need to 'require "FTFileBrowser"', for
+  example. Start time should be a little better.
+
+- FTActionButton: keeps button in "engaged" state while action runs.
+
+- examples/disconnect.rb (thanks to Will Merrell for asking questions!)
+
+- GUI option for examples/chat-server.rb (which helps on windows). (The
+  example shows use of observable attrs over a drb connection to connect
+  widgets in multiple Fox apps.)
+
+foxtails 0.2
+
+- Several new examples.
+
+- Added FTTreeBrowser and related files.
+
+- Updated to Ruby 1.8.0.
+
+foxtails 0.1
+
+- First public release.
